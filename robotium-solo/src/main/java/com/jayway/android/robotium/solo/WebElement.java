@@ -3,32 +3,38 @@ package com.jayway.android.robotium.solo;
 import java.util.Hashtable;
 
 /**
- * Represents an element shown in a WebView.  
+ * Represents an element shown in a WebView.
  * 
  * @author Renas Reda, renasreda@gmail.com
  * 
  */
 
 public class WebElement {
-	
+
 	private int locationX = 0;
 	private int locationY = 0;
+	private int width = 0;
+	private int height = 0;
 	private String id;
 	private String text;
 	private String name;
 	private String className;
 	private String tagName;
 	private Hashtable<String, String> attributes;
-	
 
 	/**
-	 * Constructs this object. 
+	 * Constructs this object.
 	 * 
-	 * @param webId the given web id
-	 * @param textContent the given text to be set
-	 * @param name the given name to be set
-	 * @param className the given class name to set
-	 * @param tagName the given tag name to be set
+	 * @param webId
+	 *            the given web id
+	 * @param textContent
+	 *            the given text to be set
+	 * @param name
+	 *            the given name to be set
+	 * @param className
+	 *            the given class name to set
+	 * @param tagName
+	 *            the given tag name to be set
 	 */
 
 	public WebElement(String webId, String textContent, String name, String className, String tagName, Hashtable<String, String> attributes) {
@@ -54,20 +60,22 @@ public class WebElement {
 	/**
 	 * Sets the X location.
 	 * 
-	 * @param locationX the X location of the {@code WebElement}
+	 * @param locationX
+	 *            the X location of the {@code WebElement}
 	 */
 
-	public void setLocationX(int locationX){
+	public void setLocationX(int locationX) {
 		this.locationX = locationX;
 	}
 
 	/**
 	 * Sets the Y location.
 	 * 
-	 * @param locationY the Y location of the {@code WebElement}
+	 * @param locationY
+	 *            the Y location of the {@code WebElement}
 	 */
 
-	public void setLocationY(int locationY){
+	public void setLocationY(int locationY) {
 		this.locationY = locationY;
 	}
 
@@ -77,7 +85,7 @@ public class WebElement {
 	 * @return the X location
 	 */
 
-	public int getLocationX(){
+	public int getLocationX() {
 		return this.locationX;
 	}
 
@@ -87,7 +95,7 @@ public class WebElement {
 	 * @return the Y location
 	 */
 
-	public int getLocationY(){
+	public int getLocationY() {
 		return this.locationY;
 	}
 
@@ -104,7 +112,8 @@ public class WebElement {
 	/**
 	 * Sets the id.
 	 * 
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 
 	public void setId(String id) {
@@ -124,7 +133,8 @@ public class WebElement {
 	/**
 	 * Sets the name.
 	 * 
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 
 	public void setName(String name) {
@@ -144,7 +154,8 @@ public class WebElement {
 	/**
 	 * Sets the class name.
 	 * 
-	 * @param className the class name to set
+	 * @param className
+	 *            the class name to set
 	 */
 
 	public void setClassName(String className) {
@@ -164,7 +175,8 @@ public class WebElement {
 	/**
 	 * Sets the tag name.
 	 * 
-	 * @param tagName the tag name to set
+	 * @param tagName
+	 *            the tag name to set
 	 */
 
 	public void setTagName(String tagName) {
@@ -184,9 +196,10 @@ public class WebElement {
 	/**
 	 * Sets the text content.
 	 * 
-	 * @param textContent the text content to set
+	 * @param textContent
+	 *            the text content to set
 	 */
-	
+
 	public void setTextContent(String textContent) {
 		this.text = textContent;
 	}
@@ -198,21 +211,52 @@ public class WebElement {
 	 */
 
 	public String getAttribute(String attributeName) {
-		if (attributeName != null){
+		if (attributeName != null) {
 			return this.attributes.get(attributeName);
 		}
-		
+
 		return null;
 	}
 
 	/**
 	 * Sets the attributes.
 	 * 
-	 * @param attributes the attributes to set
+	 * @param attributes
+	 *            the attributes to set
 	 */
-	
-	public void setAttributes(Hashtable<String,String> attributes) {
+
+	public void setAttributes(Hashtable<String, String> attributes) {
 		this.attributes = attributes;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @param height
+	 *            the height
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	/**
+	 * @param width
+	 *            the width
+	 */
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 }
