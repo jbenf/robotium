@@ -3155,4 +3155,9 @@ public class Solo {
 			return defaultValue;
 		}
 	}
+
+	public void setPause(int pause, int miniPause) {
+		this.sleeper.PAUSE = pause;
+		this.sleeper.MINIPAUSE = miniPause;
+	}
 }
