@@ -270,6 +270,15 @@ public class Solo {
 		return (waiter.waitForText(text, minimumNumberOfMatches, timeout, scroll, onlyVisible, true) != null);
 	}
 
+	public TextView waitForTextView(String text, int minimumNumberOfMatches, long timeout, boolean scroll, boolean onlyVisible) {
+		TextView viewToReturn = (TextView) waiter.waitForText(TextView.class, text, minimumNumberOfMatches, timeout, scroll, onlyVisible, false);
+
+		if (viewToReturn == null)
+			Assert.assertTrue(TextView.class.getSimpleName() + " with text: '" + text + "' is not found!", false);
+
+		return viewToReturn;
+	}
+
 	/**
 	 * Waits for a View matching the specified resource id. Default timeout is
 	 * 20 seconds.

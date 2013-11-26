@@ -16,8 +16,9 @@ public abstract class ViewCondition<T extends View> implements Condition {
 	private Solo solo;
 	private T view;
 	private Class<T> classType;
-	private int minimumNumberOfMatches = 1;
+	private int index = 0;
 	private boolean scroll = true;
+	private boolean ignoreInvisible = true;
 
 	/**
 	 * @param solo
@@ -31,12 +32,12 @@ public abstract class ViewCondition<T extends View> implements Condition {
 	}
 
 	/**
-	 * @param number
-	 *            minimum number of matches, default is 1
+	 * @param index
+	 *            minimum index within the matching views, default is 0
 	 * @return this for chaining
 	 */
-	public ViewCondition<T> setMinimumNumberOfMatches(int number) {
-		this.minimumNumberOfMatches = number;
+	public ViewCondition<T> setIndex(int index) {
+		this.index = index;
 
 		return this;
 	}
@@ -48,6 +49,12 @@ public abstract class ViewCondition<T extends View> implements Condition {
 	 */
 	public ViewCondition<T> setScroll(boolean scroll) {
 		this.scroll = scroll;
+
+		return this;
+	}
+
+	public ViewCondition<T> setIgnoreInvisible(boolean ignoreInvisible) {
+		this.ignoreInvisible = ignoreInvisible;
 
 		return this;
 	}
@@ -68,16 +75,21 @@ public abstract class ViewCondition<T extends View> implements Condition {
 		else
 			views = solo.getCurrentViews(classType);
 
-		int matches = 0;
+		int i = index >= 0 ? 0 : views.size() - 1;
+		int step = index >= 0 ? 1 : -1;
+		int localIndex = index >= 0 ? index : -1 - index;
+		int currentIndex = 0;
 
-		for (T view : views) {
-			if (isSatisfied(view)) {
-				matches++;
-				if (matches >= minimumNumberOfMatches) {
+		while (i >= 0 && i < views.size()) {
+			T view = views.get(i);
+			if ((!ignoreInvisible || view.isShown()) && isSatisfied(view)) {
+				if (currentIndex == localIndex) {
 					this.view = view;
 					return true;
 				}
+				currentIndex++;
 			}
+			i += step;
 		}
 
 		if (scroll)
