@@ -368,19 +368,21 @@ public class Solo {
 	/**
 	 * Waits for the specified View.
 	 * 
-	 * @param view
-	 *            the {@link View} object to wait for
-	 * @param timeout
-	 *            the amount of time in milliseconds to wait
-	 * @param scroll
-	 *            {@code true} if scrolling should be performed
-	 * @return {@code true} if the {@link View} is displayed and {@code false}
-	 *         if it is not displayed before the timeout
+	 * @param view the {@link View} object to wait for
+	 * @param timeout the amount of time in milliseconds to wait
+	 * @param scroll {@code true} if scrolling should be performed
+	 * @return {@code true} if the {@link View} is displayed and {@code false} if it is not displayed before the timeout
 	 * 
 	 */
 
 	public <T extends View> boolean waitForView(View view, int timeout, boolean scroll) {
-		return waiter.waitForView(view, timeout, scroll);
+		boolean checkIsShown = false;
+		
+		if(!scroll){
+			checkIsShown = true;
+		}
+		
+		return waiter.waitForView(view, timeout, scroll, checkIsShown);
 	}
 
 	/**
@@ -1510,24 +1512,19 @@ public class Solo {
 	}
 
 	/**
-	 * Simulate touching the specified location and dragging it to a new
-	 * location.
-	 * 
-	 * 
-	 * @param fromX
-	 *            X coordinate of the initial touch, in screen coordinates
-	 * @param toX
-	 *            X coordinate of the drag destination, in screen coordinates
-	 * @param fromY
-	 *            X coordinate of the initial touch, in screen coordinates
-	 * @param toY
-	 *            Y coordinate of the drag destination, in screen coordinates
-	 * @param stepCount
-	 *            How many move steps to include in the drag
-	 * 
+	 * Simulate touching the specified location and dragging it to a new location.
+	 *
+	 *
+	 * @param fromX X coordinate of the initial touch, in screen coordinates
+	 * @param toX X coordinate of the drag destination, in screen coordinates
+	 * @param fromY Y coordinate of the initial touch, in screen coordinates
+	 * @param toY Y coordinate of the drag destination, in screen coordinates
+	 * @param stepCount How many move steps to include in the drag
+	 *
 	 */
 
-	public void drag(float fromX, float toX, float fromY, float toY, int stepCount) {
+	public void drag(float fromX, float toX, float fromY, float toY, 
+			int stepCount) {
 		dialogUtils.hideSoftKeyboard(null, false, true);
 		scroller.drag(fromX, toX, fromY, toY, stepCount);
 	}
@@ -1716,24 +1713,17 @@ public class Solo {
 
 	/**
 	 * Scrolls horizontally.
-	 * 
-	 * @param side
-	 *            the side to scroll; {@link #RIGHT} or {@link #LEFT}
-	 * @param scrollLength
-	 *            the length to scroll from 0 to 1 where 1 is all the way.
-	 *            Example is: 0.55.
-	 * 
+	 *
+	 * @param side the side to scroll; {@link #RIGHT} or {@link #LEFT}
+	 * @param scrollPosition the position to scroll to, from 0 to 1 where 1 is all the way. Example is: 0.55.
+	 *
 	 */
-
-	public void scrollToSide(int side, float scrollLength) {
-		switch (side) {
-		case RIGHT:
-			scroller.scrollToSide(Scroller.Side.RIGHT, scrollLength);
-			break;
-		case LEFT:
-			scroller.scrollToSide(Scroller.Side.LEFT, scrollLength);
-			break;
-		}
+	
+	public void scrollToSide(int side, float scrollPosition) {
+        switch (side){
+            case RIGHT: scroller.scrollToSide(Scroller.Side.RIGHT, scrollPosition); break;
+            case LEFT:  scroller.scrollToSide(Scroller.Side.LEFT, scrollPosition);  break;
+        }
 	}
 
 	/**
@@ -1757,25 +1747,17 @@ public class Solo {
 
 	/**
 	 * Scrolls a View horizontally.
-	 * 
-	 * @param view
-	 *            the View to scroll
-	 * @param side
-	 *            the side to scroll; {@link #RIGHT} or {@link #LEFT}
-	 * @param scrollLength
-	 *            the length to scroll from 0 to 1 where 1 is all the way.
-	 *            Example is: 0.55.
-	 * 
+	 *
+	 * @param view the View to scroll
+	 * @param side the side to scroll; {@link #RIGHT} or {@link #LEFT}
+	 * @param scrollPosition the position to scroll to, from 0 to 1 where 1 is all the way. Example is: 0.55.
+	 *
 	 */
 
-	public void scrollViewToSide(View view, int side, float scrollLength) {
-		switch (side) {
-		case RIGHT:
-			scroller.scrollViewToSide(view, Scroller.Side.RIGHT, scrollLength);
-			break;
-		case LEFT:
-			scroller.scrollViewToSide(view, Scroller.Side.LEFT, scrollLength);
-			break;
+	public void scrollViewToSide(View view, int side, float scrollPosition) {
+		switch (side){
+			case RIGHT: scroller.scrollViewToSide(view, Scroller.Side.RIGHT, scrollPosition); break;
+			case LEFT:  scroller.scrollViewToSide(view, Scroller.Side.LEFT, scrollPosition);  break;
 		}
 	}
 
@@ -2384,15 +2366,14 @@ public class Solo {
 	}
 
 	/**
-	 * Returns a View matching the specified resource id.
+	 * Returns a View matching the specified resource id. 
 	 * 
-	 * @param id
-	 *            the id of the {@link View} to return
+	 * @param id the id of the {@link View} to return
 	 * @return a {@link View} matching the specified id
 	 */
 
-	public View getView(String id) {
-		return getter.getView(id, 0);
+	public View getView(String id){
+		return getView(id, 0);
 	}
 
 	/**
@@ -2935,13 +2916,13 @@ public class Solo {
 	/**
 	 * Returns a localized String matching the specified resource id.
 	 * 
-	 * @param id
-	 *            the R.id of the String
+	 * @param id the id of the String
 	 * @return the localized String
 	 * 
 	 */
 
-	public String getString(String id) {
+	public String getString(String id)
+	{
 		return getter.getString(id);
 	}
 

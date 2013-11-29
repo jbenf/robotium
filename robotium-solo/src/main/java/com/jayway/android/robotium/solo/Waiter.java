@@ -239,46 +239,39 @@ class Waiter {
 	/**
 	 * Waits for a given view. Default timeout is 20 seconds.
 	 * 
-	 * @param view
-	 *            the view to wait for
-	 * @return {@code true} if view is shown and {@code false} if it is not
-	 *         shown before the timeout
+	 * @param view the view to wait for
+	 * @return {@code true} if view is shown and {@code false} if it is not shown before the timeout
 	 */
 
-	public boolean waitForView(View view) {
-		return waitForView(view, Timeout.getLargeTimeout(), true);
+	public boolean waitForView(View view){
+		return waitForView(view, Timeout.getLargeTimeout(), true, true);
+	}
+
+	/**
+	 * Waits for a given view. 
+	 * 
+	 * @param view the view to wait for
+	 * @param timeout the amount of time in milliseconds to wait
+	 * @return {@code true} if view is shown and {@code false} if it is not shown before the timeout
+	 */
+
+	public boolean waitForView(View view, int timeout){
+		return waitForView(view, timeout, true, false);
 	}
 
 	/**
 	 * Waits for a given view.
 	 * 
-	 * @param view
-	 *            the view to wait for
-	 * @param timeout
-	 *            the amount of time in milliseconds to wait
-	 * @return {@code true} if view is shown and {@code false} if it is not
-	 *         shown before the timeout
+	 * @param view the view to wait for
+	 * @param timeout the amount of time in milliseconds to wait
+	 * @param scroll {@code true} if scrolling should be performed
+	 * @param checkIsShown {@code true} if view.isShown() should be used
+	 * @return {@code true} if view is shown and {@code false} if it is not shown before the timeout
 	 */
 
-	public boolean waitForView(View view, int timeout) {
-		return waitForView(view, timeout, true);
-	}
-
-	/**
-	 * Waits for a given view.
-	 * 
-	 * @param view
-	 *            the view to wait for
-	 * @param timeout
-	 *            the amount of time in milliseconds to wait
-	 * @param scroll
-	 *            {@code true} if scrolling should be performed
-	 * @return {@code true} if view is shown and {@code false} if it is not
-	 *         shown before the timeout
-	 */
-
-	public boolean waitForView(View view, int timeout, boolean scroll) {
-		if (view == null)
+	public boolean waitForView(View view, int timeout, boolean scroll, boolean checkIsShown){
+	
+		if(view == null)
 			return false;
 
 		long endTime = SystemClock.uptimeMillis() + timeout;
@@ -287,12 +280,15 @@ class Waiter {
 			sleeper.sleep();
 
 			final boolean foundAnyMatchingView = searcher.searchFor(view);
-
-			if (foundAnyMatchingView) {
+		
+			if (foundAnyMatchingView){
+				return true;
+			}
+			else if(checkIsShown && view != null && view.isShown()){
 				return true;
 			}
 
-			if (scroll)
+			if(scroll) 
 				scroller.scroll(Scroller.DOWN);
 		}
 		return false;
@@ -301,30 +297,28 @@ class Waiter {
 	/**
 	 * Waits for a certain view.
 	 * 
-	 * @param view
-	 *            the id of the view to wait for
-	 * @param index
-	 *            the index of the {@link View}. {@code 0} if only one is
-	 *            available
+	 * @param view the id of the view to wait for
+	 * @param index the index of the {@link View}. {@code 0} if only one is available
+	 * @param timeout the timeout in milliseconds
 	 * @return the specified View
 	 */
 
-	public View waitForView(int id, int index) {
-		return waitForView(id, index, Timeout.getSmallTimeout(), false);
+	public View waitForView(int id, int index, int timeout){
+		if(timeout == 0){
+			timeout = Timeout.getSmallTimeout();
+		}
+		return waitForView(id, index, timeout, false);
 	}
 
 	/**
 	 * Waits for a certain view.
 	 * 
-	 * @param view
-	 *            the id of the view to wait for
-	 * @param index
-	 *            the index of the {@link View}. {@code 0} if only one is
-	 *            available
+	 * @param view the id of the view to wait for
+	 * @param index the index of the {@link View}. {@code 0} if only one is available
 	 * @return the specified View
 	 */
 
-	public View waitForView(int id, int index, int timeout, boolean scroll) {
+	public View waitForView(int id, int index, int timeout, boolean scroll){
 		Set<View> uniqueViewsMatchingId = new HashSet<View>();
 		long endTime = SystemClock.uptimeMillis() + timeout;
 
@@ -344,7 +338,7 @@ class Waiter {
 					}
 				}
 			}
-			if (scroll)
+			if(scroll) 
 				scroller.scroll(Scroller.DOWN);
 		}
 		return null;

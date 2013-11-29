@@ -9,8 +9,8 @@ import android.os.SystemClock;
 import android.webkit.WebView;
 
 /**
- * Contains TextView related methods. Examples are: getTextViewsFromWebViews(),
- * createTextViewAndAddInList().
+ * Contains TextView related methods. Examples are:
+ * getTextViewsFromWebViews(), createTextViewAndAddInList().
  * 
  * @author Renas Reda, renasreda@gmail.com
  * 
@@ -46,15 +46,13 @@ class WebElementCreator {
 	}
 
 	/**
-	 * Returns an {@code ArrayList} of {@code TextView} objects based on the web
-	 * elements shown
+	 * Returns an {@code ArrayList} of {@code TextView} objects based on the web elements shown
 	 * 
-	 * @return an {@code ArrayList} of {@code TextView} objects based on the web
-	 *         elements shown
+	 * @return an {@code ArrayList} of {@code TextView} objects based on the web elements shown
 	 */
 
-	public ArrayList<WebElement> getWebElementsFromWebViews() {
-		waitForWebElementsToBeCreted();
+	public ArrayList<WebElement> getWebElementsFromWebViews(){
+		waitForWebElementsToBeCreated();
 		return new ArrayList<WebElement>(webElements);
 	}
 
@@ -186,7 +184,7 @@ class WebElementCreator {
 	 * @return true if successfully created before timout
 	 */
 
-	private boolean waitForWebElementsToBeCreted() {
+	private boolean waitForWebElementsToBeCreated() {
 		final long endTime = SystemClock.uptimeMillis() + 5000;
 
 		while (SystemClock.uptimeMillis() < endTime) {

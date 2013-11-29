@@ -214,28 +214,29 @@ class ScreenshotTaker {
 	/**
 	 * Returns a bitmap of a given View.
 	 * 
-	 * @param view
-	 *            the view to save a bitmap from
+	 * @param view the view to save a bitmap from
 	 * @return a bitmap of the given view
 	 * 
 	 */
 
-	private Bitmap getBitmapOfView(final View view) {
+	private Bitmap getBitmapOfView(final View view){
 		view.destroyDrawingCache();
 		view.buildDrawingCache(false);
 		Bitmap orig = view.getDrawingCache();
 		Bitmap.Config config = null;
 
-		if (orig != null) {
-			config = orig.getConfig();
+		if(orig == null) {
+			return null;
 		}
 
-		if (config == null) {
+		config = orig.getConfig();
+
+		if(config == null) {
 			config = Bitmap.Config.ARGB_8888;
 		}
 		Bitmap b = orig.copy(config, false);
 		view.destroyDrawingCache();
-		return b;
+		return b; 
 	}
 
 	/**
