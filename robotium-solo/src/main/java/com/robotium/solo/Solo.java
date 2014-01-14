@@ -2495,23 +2495,6 @@ public class Solo {
 	}
 
 	/**
-	 * Takes a screenshot and saves it with the specified name in
-	 * "/sdcard/Robotium-Screenshots/". Requires write permission
-	 * (android.permission.WRITE_EXTERNAL_STORAGE) in AndroidManifest.xml of the
-	 * application under test.
-	 * 
-	 * @param dirPath
-	 *            where to save the file
-	 * 
-	 * @param name
-	 *            the name to give the screenshot
-	 * 
-	 */
-	public void takeScreenshot(String dirPath, String name) {
-		takeScreenshot(dirPath, name, 100);
-	}
-
-	/**
 	 * Takes a screenshot and saves it with the specified name in the {@link Config} objects save path (default set to: /sdcard/Robotium-Screenshots/).
 	 * Requires write permission (android.permission.WRITE_EXTERNAL_STORAGE) in AndroidManifest.xml of the application under test.
 	 *
@@ -2532,25 +2515,6 @@ public class Solo {
 
 	public void takeScreenshot(String name, int quality){
 		screenshotTaker.takeScreenshot(name, quality);
-	}
-
-	/**
-	 * Takes a screenshot and saves the image with the specified name in
-	 * "/sdcard/Robotium-Screenshots/". Requires write permission
-	 * (android.permission.WRITE_EXTERNAL_STORAGE) in AndroidManifest.xml of the
-	 * application under test. * @param directory where to save the file
-	 * 
-	 * @param dirPath
-	 *            where to save the file
-	 * @param name
-	 *            the name to give the screenshot
-	 * @param quality
-	 *            the compression rate. From 0 (compress for lowest size) to 100
-	 *            (compress for maximum quality)
-	 * 
-	 */
-	public void takeScreenshot(String dirPath, String name, int quality) {
-		screenshotTaker.takeScreenshot(dirPath, name, quality);
 	}
 
 
@@ -2657,5 +2621,9 @@ public class Solo {
 	public void setPause(int pause, int miniPause) {
 		this.sleeper.PAUSE = pause;
 		this.sleeper.MINIPAUSE = miniPause;
+	}
+	
+	public Config getConfig() {
+		return config;
 	}
 }
