@@ -21,6 +21,7 @@ public abstract class ViewCondition<T extends View> implements Condition {
 	private int index = 0;
 	private boolean scroll = true;
 	private boolean ignoreInvisible = true;
+	private boolean ignoreDisabled = false;
 
 	/**
 	 * @param solo
@@ -60,6 +61,12 @@ public abstract class ViewCondition<T extends View> implements Condition {
 
 		return this;
 	}
+	
+	public ViewCondition<T> setIgnoreDisabled(boolean ignoreDisabled) {
+		this.ignoreDisabled = ignoreDisabled;
+
+		return this;
+	}
 
 	/**
 	 * @param view
@@ -84,7 +91,7 @@ public abstract class ViewCondition<T extends View> implements Condition {
 
 		while (i >= 0 && i < views.size()) {
 			T view = views.get(i);
-			if ((!ignoreInvisible || view.isShown()) && isSatisfied(view)) {
+			if ((!ignoreInvisible || view.isShown()) && (!ignoreDisabled || view.isEnabled()) && isSatisfied(view)) {
 				if (currentIndex == localIndex) {
 					this.view = view;
 					return true;
