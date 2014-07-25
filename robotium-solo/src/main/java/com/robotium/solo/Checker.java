@@ -15,7 +15,7 @@ import android.widget.TextView;
  * 
  */
 
-class Checker {
+public class Checker {
 	
 	private final ViewFetcher viewFetcher;
 	private final Waiter waiter;

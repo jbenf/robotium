@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
 import android.view.MotionEvent.PointerProperties;
 
-class Swiper
+public class Swiper
 {
     private final Instrumentation _instrument;
     public static final int GESTURE_DURATION_MS = 1000;

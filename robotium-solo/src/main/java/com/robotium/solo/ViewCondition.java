@@ -1,6 +1,7 @@
 package com.robotium.solo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.robotium.solo.Solo;
 
@@ -78,11 +79,7 @@ public abstract class ViewCondition<T extends View> implements Condition {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isSatisfied() {
-		ArrayList<T> views = null;
-		if (classType == null || classType.equals(View.class))
-			views = (ArrayList<T>) solo.getCurrentViews();
-		else
-			views = solo.getCurrentViews(classType);
+		List<View> views = solo.getViews();
 
 		int i = index >= 0 ? 0 : views.size() - 1;
 		int step = index >= 0 ? 1 : -1;
@@ -90,13 +87,16 @@ public abstract class ViewCondition<T extends View> implements Condition {
 		int currentIndex = 0;
 
 		while (i >= 0 && i < views.size()) {
-			T view = views.get(i);
-			if ((!ignoreInvisible || view.isShown()) && (!ignoreDisabled || view.isEnabled()) && isSatisfied(view)) {
-				if (currentIndex == localIndex) {
-					this.view = view;
-					return true;
+			View rawView = views.get(i);
+			if(classType == null || classType.isInstance(rawView)) {
+				T view = (T) rawView;
+				if ((!ignoreInvisible || view.isShown()) && (!ignoreDisabled || view.isEnabled()) && isSatisfied(view)) {
+					if (currentIndex == localIndex) {
+						this.view = view;
+						return true;
+					}
+					currentIndex++;
 				}
-				currentIndex++;
 			}
 			i += step;
 		}

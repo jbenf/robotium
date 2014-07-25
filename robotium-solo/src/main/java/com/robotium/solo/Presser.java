@@ -15,7 +15,7 @@ import android.view.inputmethod.EditorInfo;
  * 
  */
 
-class Presser{
+public class Presser{
 
 	private final Clicker clicker;
 	private final Instrumentation inst;

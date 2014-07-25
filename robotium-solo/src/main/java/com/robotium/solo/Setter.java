@@ -14,7 +14,7 @@ import android.widget.TimePicker;
  * 
  */
 
-class Setter{
+public class Setter{
 
 	private final int CLOSED = 0;
 	private final int OPENED = 1;

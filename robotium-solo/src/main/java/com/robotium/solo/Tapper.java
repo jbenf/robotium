@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
 import android.view.MotionEvent.PointerProperties;
 
-class Tapper
+public class Tapper
 {
     private final Instrumentation _instrument;
     public static final int GESTURE_DURATION_MS = 1000;

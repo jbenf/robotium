@@ -17,7 +17,7 @@ import android.widget.EditText;
  * 
  */
 
-class DialogUtils {
+public class DialogUtils {
 
 	private final ActivityUtils activityUtils;
 	private final ViewFetcher viewFetcher;

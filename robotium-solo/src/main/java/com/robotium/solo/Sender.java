@@ -13,7 +13,7 @@ import android.view.KeyEvent;
  * 
  */
 
-class Sender {
+public class Sender {
 
 	private final Instrumentation inst;
 	private final Sleeper sleeper;

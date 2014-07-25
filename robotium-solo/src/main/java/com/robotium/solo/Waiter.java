@@ -24,7 +24,7 @@ import android.widget.TextView;
  * 
  */
 
-class Waiter {
+public class Waiter {
 
 	private final ActivityUtils activityUtils;
 	private final ViewFetcher viewFetcher;

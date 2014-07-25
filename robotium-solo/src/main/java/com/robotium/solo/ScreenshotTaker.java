@@ -30,7 +30,7 @@ import android.webkit.WebView;
  * 
  */
 
-class ScreenshotTaker {
+public class ScreenshotTaker {
 
 	private final Config config;
 	private final ActivityUtils activityUtils;

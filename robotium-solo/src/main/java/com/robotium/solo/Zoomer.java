@@ -8,7 +8,7 @@ import android.view.MotionEvent.PointerCoords;
 import android.graphics.PointF;
 
 
-class Zoomer {
+public class Zoomer {
 	
 	private final Instrumentation _instrument;
 	public static final int GESTURE_DURATION_MS = 1000;

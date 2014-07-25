@@ -16,7 +16,7 @@ import android.widget.TextView;
  * 
  */
 
-class Getter {
+public class Getter {
 
 	private final Instrumentation instrumentation;
 	private final ActivityUtils activityUtils;
